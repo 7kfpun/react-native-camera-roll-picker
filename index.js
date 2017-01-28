@@ -83,6 +83,11 @@ class CameraRollPicker extends Component {
     this.setState(newState);
   }
 
+  _onScroll(event) {
+		this.props.onScroll && this.props.onScroll(event);
+	}
+
+
   render() {
     var {dataSource} = this.state;
     var {
@@ -106,7 +111,8 @@ class CameraRollPicker extends Component {
         renderFooter={this._renderFooterSpinner.bind(this)}
         onEndReached={this._onEndReached.bind(this)}
         dataSource={dataSource}
-        renderRow={rowData => this._renderRow(rowData)} />
+        renderRow={rowData => this._renderRow(rowData)}
+        onScroll={event => this._onScroll(event)} />
     ) : (
       <Text style={[{textAlign: 'center'}, emptyTextStyle]}>{emptyText}</Text>
     );
@@ -269,6 +275,7 @@ CameraRollPicker.propTypes = {
   backgroundColor: React.PropTypes.string,
   emptyText: React.PropTypes.string,
   emptyTextStyle: Text.propTypes.style,
+  onScroll: React.PropTypes.func,
 }
 
 CameraRollPicker.defaultProps = {
@@ -288,6 +295,7 @@ CameraRollPicker.defaultProps = {
     console.log(selectedImages);
   },
   emptyText: 'No photos.',
+  onScroll: null,
 }
 
 export default CameraRollPicker;

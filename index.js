@@ -99,6 +99,7 @@ class CameraRollPicker extends Component {
       backgroundColor,
       emptyText,
       emptyTextStyle,
+      scrollEventThrottle,
     } = this.props;
 
     var listViewOrEmptyText = dataSource.getRowCount() > 0 ? (
@@ -112,7 +113,8 @@ class CameraRollPicker extends Component {
         onEndReached={this._onEndReached.bind(this)}
         dataSource={dataSource}
         renderRow={rowData => this._renderRow(rowData)}
-        onScroll={event => this._onScroll(event)} />
+        onScroll={event => this._onScroll(event)}
+        scrollEventThrottle={scrollEventThrottle} />
     ) : (
       <Text style={[{textAlign: 'center'}, emptyTextStyle]}>{emptyText}</Text>
     );
@@ -276,6 +278,7 @@ CameraRollPicker.propTypes = {
   emptyText: React.PropTypes.string,
   emptyTextStyle: Text.propTypes.style,
   onScroll: React.PropTypes.func,
+  scrollEventThrottle: React.PropTypes.number,
 }
 
 CameraRollPicker.defaultProps = {
@@ -296,6 +299,7 @@ CameraRollPicker.defaultProps = {
   },
   emptyText: 'No photos.',
   onScroll: null,
+  scrollEventThrottle: 200,
 }
 
 export default CameraRollPicker;
